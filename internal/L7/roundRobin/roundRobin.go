@@ -5,12 +5,12 @@ import (
 	"sync/atomic"
 )
 
-type RoundRobineBalancer struct {
-	backends []*url.URL
+type Roundrobinbalancer struct {
+	Backends []*url.URL
 	counter  uint64
 }
 
-func (rr *RoundRobineBalancer) NextBackend() *url.URL {
+func (rr *Roundrobinbalancer) Nextbackend() *url.URL {
 	index := atomic.AddUint64(&rr.counter, 1)
-	return rr.backends[index%uint64(len(rr.backends))]
+	return rr.Backends[index%uint64(len(rr.Backends))]
 }
