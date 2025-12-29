@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"sync/atomic"
+	"time"
 )
 
 func main() {
@@ -17,10 +19,14 @@ func main() {
 	}
 
 	var counter int64
+	minDelay := 10
+	maxDelay := 1000
 
 	handler := func(w http.ResponseWriter, r *http.Request) {
+		randomDelay := rand.Intn(maxDelay-minDelay+1) + minDelay
 		n := atomic.AddInt64(&counter, 1)
-		fmt.Fprintf(w, "pong from %s | count=%d\n", name, n)
+		time.Sleep(time.Duration(randomDelay) * time.Millisecond)
+		fmt.Fprintf(w, "pong from %s | count=%d | delay=%d\n", name, n, randomDelay)
 	}
 
 	http.HandleFunc("/", handler)

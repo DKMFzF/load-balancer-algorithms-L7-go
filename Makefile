@@ -10,6 +10,10 @@ run-wrr:
 	@echo "[ Runing... ]"
 	@go run ./cmd/wrr/main.go
 
+run-lb:
+	@echo "[ Runing... ]"
+	@go run ./cmd/leastconn/main.go
+
 run-servers:
 	@echo "[ Runing... ]"
 	PORT=8081 NAME=ping-1 go run ./cmd/server/main.go & \
