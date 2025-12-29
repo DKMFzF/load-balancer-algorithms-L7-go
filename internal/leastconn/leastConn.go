@@ -1,6 +1,7 @@
 package leastconn
 
 import (
+	"balancer/internal/metrics"
 	"net/url"
 	"sync"
 )
@@ -34,6 +35,9 @@ func (lc *LeastConnections) Acquire() *Backend {
 	}
 
 	selected.Connections++
+
+	metrics.ActiveConnections.WithLabelValues(selected.URL.Host).Inc()
+
 	return selected
 }
 
@@ -41,4 +45,6 @@ func (lc *LeastConnections) Release(b *Backend) {
 	lc.mu.Lock()
 	b.Connections--
 	lc.mu.Unlock()
+
+	metrics.ActiveConnections.WithLabelValues(b.URL.Host).Dec()
 }
