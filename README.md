@@ -19,6 +19,11 @@ cd load-balancer-algorithms-L7-go
 
 go mod download
 
-make run
+make run-servers
+
+# choose which algorithm you want to use
+make run-rr
+make run-wrr
+make run-lb
 ```
 
