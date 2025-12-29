@@ -1,4 +1,4 @@
-package sidecar
+package main
 
 import (
 	"balancer/internal/metrics"
