@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sync/atomic"
 )
 
 func main() {
@@ -15,8 +16,11 @@ func main() {
 		log.Fatal("Port or Name not found in env")
 	}
 
+	var counter int64
+
 	handler := func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "pong from %s\n", name)
+		n := atomic.AddInt64(&counter, 1)
+		fmt.Fprintf(w, "pong from %s | count=%d\n", name, n)
 	}
 
 	http.HandleFunc("/", handler)
