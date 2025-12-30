@@ -1,5 +1,7 @@
 # L7 balancers on Go 
 
+![img_metrics](./docs/Снимок экрана_20251230_022332.png)
+
 L7 balancing algorithms that have been implemented:
 - Round Robin
 - Weighted Round Robin
